@@ -1,0 +1,36 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{% translate "Get to know the stories and families of others!" %}">
+    <meta name="keywords" content="family tree, stories, people">
+    <meta name="author" content="Software Neto">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>{% block title %}abuelitos.mx{% endblock title %}</title>
+    {% block base_icons %}
+    <link rel="shortcut icon" href="{% static "th_olian/images/favicon.ico" %}">
+    {% endblock base_icons %}
+    {% block more_icons %}{% endblock more_icons %}
+    {% block base_css %}
+    <link href="{% static "th_olian/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "th_olian/css/icons.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "th_olian/css/style.css" %}" rel="stylesheet" type="text/css">
+    {% endblock base_css %}
+    {% block more_css %}{% endblock more_css %}
+</head>
+<body class="vertical-layout">
+    {% block content %}{% endblock content %}        
+    {% block base_js %}
+    <script src="{% static "th_olian/js/jquery.min.js" %}"></script>
+    <script src="{% static "th_olian/js/popper.min.js" %}"></script>
+    <script src="{% static "th_olian/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "th_olian/js/modernizr.min.js" %}"></script>
+    <script src="{% static "th_olian/js/detect.js" %}"></script>
+    <script src="{% static "th_olian/js/jquery.slimscroll.js" %}"></script>
+    {% endblock base_js %}
+    {% block more_js %}{% endblock more_js %}
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends "th_olian/base.html" %}
+{% load i18n static %}
+{% block content %}
+    <!-- Start Containerbar -->
+    <div id="containerbar" class="containerbar authenticate-bg">
+        <!-- Start Container -->
+        <div class="container">
+            <div class="auth-box login-box">
+                <!-- Start row -->
+                <div class="row no-gutters align-items-center justify-content-center">
+                    <!-- Start col -->
+                    <div class="col-md-6 col-lg-5">
+                        <!-- Start Auth Box -->
+                        <div class="auth-box-right">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form method="post" action="{% url "accounts:login" %}">
+                                        {% csrf_token %}
+                                        <div class="form-head">
+                                            <a href="index.html" class="logo"><img src="{% static "th_olian/images/logo.svg" %}" class="img-fluid" alt="logo"></a>
+                                        </div>
+                                        {% if next %}
+                                            {% if user.is_authenticated %}
+                                            <div class="alert alert-danger" role="alert">{% translate "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}</div>
+                                            {% else %}
+                                            <div class="alert alert-danger" role="alert">{% translate "Please login to see this page." %}</div>
+                                            {% endif %}
+                                        {% endif %}
+                                        <h4 class="text-primary my-4">{% translate "Log in!" %}</h4>
+                                        {% if form.errors %}
+                                        <div class="alert alert-danger" role="alert">{% translate "Your username and password didn't match. Please try again." %}</div>
+                                        {% endif %}
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="{% translate "Username" %}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" placeholder="{% translate "Password" %}" required>
+                                        </div>
+                                        <div class="form-row mb-3">
+                                            <div class="col">
+                                              <div class="forgot-psw"> 
+                                                  <a id="forgot-psw" href="{% url "accounts:password_reset" %}" class="font-14">{% translate "Forgot password?" %}</a>
+                                              </div>
+                                            </div>
+                                        </div>                          
+                                        <button type="submit" class="btn btn-success btn-lg btn-block font-18">{% translate "Log in" %}</button>
+                                        <input type="hidden" name="next" value="{{ next }}">
+                                    </form>
+                                    <div class="login-or">
+                                        <h6 class="text-muted">{% translate "OR" %}</h6>
+                                    </div>
+                                    <p class="mb-0 mt-3">{% translate "Don't have a account?" %} <a href="user-register.html">{% translate "Sign up" %}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Auth Box -->
+                    </div>
+                    <!-- End col -->
+                </div>
+                <!-- End row -->
+            </div>
+        </div>
+        <!-- End Container -->
+    </div>
+    <!-- End Containerbar -->
+{% endblock content %}
