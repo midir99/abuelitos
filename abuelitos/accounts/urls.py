@@ -9,13 +9,13 @@ urlpatterns = [
     path("logout/", views.logout_view, name="logout"),
     path("password_change/", views.password_change_view, name="password_change"),
     path(
-        "password_change/done",
+        "password_change/done/",
         views.password_change_done_view,
         name="password_change_done",
     ),
     path("password_reset/", views.password_reset_view, name="password_reset"),
     path(
-        "password_reset/done",
+        "password_reset/done/",
         views.password_reset_done_view,
         name="password_reset_done",
     ),
@@ -25,6 +25,7 @@ urlpatterns = [
         name="password_reset_confirm",
     ),
     path(
-        "reset/done", views.password_reset_complete_view, name="password_reset_complete"
+        "reset/done/", views.password_reset_complete_view, name="password_reset_complete"
     ),
+    path("profile/", views.profile_view, name="profile"),
 ]

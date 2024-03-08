@@ -1,0 +1,34 @@
+{% extends "th_olian/dashboard_base.html" %}
+{% load i18n static %}
+
+{% block breadcrumbbar_list %}
+<li class="breadcrumb-item"><a href="{% url "accounts:profile" %}">{% translate "My Profile" %}</a></li>
+{% endblock breadcrumbbar_list %}
+
+{% block contentbar_content %}
+<!-- Start row -->
+<div class="row">
+    <!-- Start col -->
+    <div class="col-lg-5 col-xl-3">
+        <div class="card m-b-30">
+            <div class="card-header">                                
+                <h5 class="card-title mb-0">{% translate "My Profile" %}</h5>
+            </div>
+            <div class="card-body">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link mb-2 {% block active_section_my_info %}{% endblock active_section_my_info %}" href="{% url "accounts:profile" %}" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="ri-dashboard-line mr-2"></i>{% translate "My Information" %}</a>
+                    <a class="nav-link mb-2 {% block active_section_change_pwd %}{% endblock active_section_change_pwd %}" href="{% url "accounts:password_change" %}" role="tab" aria-controls="v-pills-order" aria-selected="false"><i class="ri-dropbox-line mr-2"></i>{% translate "Change password" %}</a>
+                    <a class="nav-link text-danger" href="#v-pills-logout" role="tab" aria-controls="v-pills-logout" aria-selected="false"><i class="ri-shut-down-line mr-2"></i>{% translate "Log Out" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End col -->
+    <!-- Start col -->
+    <div class="col-lg-7 col-xl-9">
+        <div class="tab-content" id="v-pills-tabContent">{% block tab_content %}{% endblock tab_content %}</div>                        
+    </div>
+    <!-- End col -->
+</div>
+<!-- End row -->
+{% endblock contentbar_content %}

@@ -1,4 +1,5 @@
 from django.contrib.auth import views as views_auth
+from django.views import generic as views_generic
 
 
 class LoginView(views_auth.LoginView):
@@ -16,7 +17,7 @@ logout_view = LogoutView.as_view()
 
 
 class PasswordChangeView(views_auth.PasswordChangeView):
-    template_name = "accounts/password_change_form.html"
+    template_name = "accounts/profile_password_change_form.html"
 
 
 password_change_view = PasswordChangeView.as_view()
@@ -55,3 +56,10 @@ class PasswordResetCompleteView(views_auth.PasswordResetCompleteView):
 
 
 password_reset_complete_view = PasswordResetCompleteView.as_view()
+
+
+class ProfileView(views_generic.TemplateView):
+    pass
+
+
+profile_view = ProfileView.as_view()

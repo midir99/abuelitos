@@ -81,10 +81,10 @@
                                         <div class="searchbar">
                                             <form>
                                                 <div class="input-group">
-                                                  <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
-                                                  <div class="input-group-append">
-                                                    <button class="btn" type="submit" id="button-addon2"><i class="ri-search-2-line"></i></button>
-                                                  </div>
+                                                    <input type="search" class="form-control" placeholder="{% translate "Search" %}" aria-label="Search" aria-describedby="button-addon2">
+                                                    <div class="input-group-append">
+                                                        <button class="btn" type="submit" id="button-addon2"><i class="ri-search-2-line"></i></button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -96,12 +96,10 @@
                                     <li class="list-inline-item">
                                         <div class="languagebar">
                                             <div class="dropdown">
-                                                <a class="dropdown-toggle" href="#" role="button" id="languagelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="iconbar iconbar-md"><i class="flag flag-icon-us flag-icon-squared"></i></span></a>
+                                                <a class="dropdown-toggle" href="#" role="button" id="languagelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="iconbar iconbar-md"><i class="flag flag-icon-mx flag-icon-squared"></i></span></a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languagelink">
-                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-us flag-icon-squared"></i>English</a>
-                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-de flag-icon-squared"></i>German</a>
-                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-bl flag-icon-squared"></i>France</a>
-                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-ru flag-icon-squared"></i>Russian</a>
+                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-mx flag-icon-squared"></i>{% translate "Spanish" %}</a>
+                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-us flag-icon-squared"></i>{% translate "English" %}</a>
                                                 </div>
                                             </div>
                                         </div>                                   
@@ -121,40 +119,23 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notoficationlink">
                                                     <div class="notification-dropdown-title">
-                                                        <h5>Notifications<a href="#">Clear all</a></h5>                            
+                                                        <h5>{% translate "Notifications" %}<a href="#">{% translate "Clear all" %}</a></h5>                            
                                                     </div>
                                                     <ul class="list-unstyled">                                                    
+                                                        {% block notification_list %}
+                                                        {% comment "This is an example of how to add a notification." %}
                                                         <li class="media dropdown-item">
                                                             <span class="action-icon badge badge-primary"><i class="ri-archive-line"></i></span>
                                                             <div class="media-body">
                                                                 <h5 class="action-title">Product Added</h5>
                                                                 <p><span class="timing">Today, 08:40 AM</span></p>                            
                                                             </div>
-                                                        </li>
-                                                        <li class="media dropdown-item">
-                                                            <span class="action-icon badge badge-success"><i class="ri-price-tag-3-line"></i></span>
-                                                            <div class="media-body">
-                                                                <h5 class="action-title">Sale Started</h5>
-                                                                <p><span class="timing">Today, 03:45 PM</span></p>                            
-                                                            </div>
-                                                        </li>
-                                                        <li class="media dropdown-item">
-                                                            <span class="action-icon badge badge-warning"><i class="ri-file-text-line"></i></span>
-                                                            <div class="media-body">
-                                                                <h5 class="action-title">Kelly Reported</h5>
-                                                                <p><span class="timing">5 June 2020, 02:20 PM</span></p>                            
-                                                            </div>
-                                                        </li>
-                                                        <li class="media dropdown-item">
-                                                            <span class="action-icon badge badge-danger"><i class="ri-file-user-line"></i></span>
-                                                            <div class="media-body">    
-                                                                <h5 class="action-title">John Resigned</h5>
-                                                                <p><span class="timing">2 June 2020, 11:11 AM</span></p>
-                                                            </div>
-                                                        </li>
+                                                        </li> 
+                                                        {% endcomment %}
+                                                        {% endblock notification_list %}
                                                     </ul>
                                                     <div class="notification-dropdown-footer">
-                                                        <h5><a href="#">See all</a></h5>                            
+                                                        <h5><a href="#">{% translate "See all" %}</a></h5>                            
                                                     </div>
                                                 </div>
                                             </div>
@@ -163,13 +144,21 @@
                                     <li class="list-inline-item">
                                         <div class="profilebar">
                                             <div class="dropdown">
-                                                <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{% static "th_olian/images/users/profile.svg" %}" class="img-fluid" alt="profile"><span class="live-icon">John D</span></a>
+                                                {% if user.is_authenticated %}
+                                                <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{% static "th_olian/images/users/profile.svg" %}" class="img-fluid" alt="profile"><span class="live-icon">{{ user.username }}</span></a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profilelink">
-                                                    <a class="dropdown-item" href="#"><i class="ri-user-6-line"></i>My Profile</a>
-                                                    <a class="dropdown-item" href="#"><i class="ri-mail-line"></i>Email</a>
-                                                    <a class="dropdown-item" href="#"><i class="ri-settings-3-line"></i>Settings</a>
-                                                    <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line"></i>Logout</a>
+                                                    <a class="dropdown-item" href="#"><i class="ri-user-6-line"></i>{% translate "My profile" %}</a>
+                                                    {% if user.is_staff %}
+                                                    <a class="dropdown-item" href="{% url "admin:index" %}"><i class="ri-settings-3-line"></i>{% translate "Staff site" %}</a>
+                                                    {% endif %}
+                                                    <form method="post" action="{% url "accounts:logout" %}">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="dropdown-item text-danger"><i class="ri-shut-down-line"></i>{% translate "Log out" %}</button> 
+                                                    </form>
                                                 </div>
+                                                {% else %}
+                                                <a class="dropdown-toggle" href="{% url "accounts:login" %}" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="live-icon">{% translate "Log in" %}</span></a>
+                                                {% endif %}
                                             </div>
                                         </div>                                   
                                     </li>
@@ -200,8 +189,8 @@
                     <nav class="horizontal-nav mobile-navbar fixed-navbar">
                         <div class="collapse navbar-collapse" id="navbar-menu">
                             <ul class="horizontal-menu"> 
-                                <li class="scroll"><a href="widgets.html"><i class="ri-search-line"></i><span>{% translate "Find People" %}</span></a></li>
-                                <li class="scroll"><a href="widgets.html"><i class="ri-search-line"></i><span>{% translate "Find Localities" %}</span></a></li>
+                                <li class="scroll"><a href="widgets.html"><i class="ri-user-search-line"></i><span>{% translate "Find People" %}</span></a></li>
+                                <li class="scroll"><a href="widgets.html"><i class="ri-map-2-line"></i><span>{% translate "Find Localities" %}</span></a></li>
                             </ul>
                         </div>
                     </nav>
@@ -215,13 +204,21 @@
             <div class="breadcrumbbar">
                 <div class="row align-items-center">
                     <div class="col-md-8 col-lg-8">
-                        <h4 class="page-title">{% block breadcrumbbar_title %}{% translate "Page Title" %}{% endblock breadcrumbbar_title %}</h4>
+                        <h4 class="page-title">
+                            {% block breadcrumbbar_title %}
+                            {% comment "This is an example of how to display as the page title the last breadcrumb item." %}
+                            {% translate "Subsubsection" %}
+                            {% endcomment %}
+                            {% endblock breadcrumbbar_title %}
+                        </h4>
                         <div class="breadcrumb-list">
                             <ol class="breadcrumb">
                                 {% block breadcrumbbar_list %}
-                                <li class="breadcrumb-item"><a href="index.html">{% translate "Section " %}</a></li>
-                                <li class="breadcrumb-item"><a href="index.html">{% translate "Subsection " %}</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{% translate "Title" %}</li>
+                                {% comment "This is an example of how to display the breadcrumb items." %}
+                                <li class="breadcrumb-item"><a href="#">{% translate "Section" %}</a></li>
+                                <li class="breadcrumb-item"><a href="#">{% translate "Subsection" %}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{% translate "Subsubsection" %}</li>
+                                {% endcomment %}
                                 {% endblock breadcrumbbar_list %}
                             </ol>
                         </div>
