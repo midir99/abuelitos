@@ -7,9 +7,8 @@
 "use strict";
 $(document).ready(function() {
     /* -- Menu js -- */
-    $.sidebarMenu($('.vertical-menu'));
-    $(function() {
-        for (var a = window.location, abc = $(".vertical-menu a").filter(function() {
+     $(function() {
+        for (var a = window.location, abc = $(".horizontal-menu a").filter(function() {
             return this.href == a;
         }).addClass("active").parent().addClass("active"); ;) {
             if (!abc.is("li")) break;
@@ -39,16 +38,6 @@ $(document).ready(function() {
         $("body").toggleClass("topbar-toggle-menu");
         $(".topbar-toggle-hamburger i").toggle();    
     });
-    /* -- Media Size -- */
-    function mediaSize() { 
-        if (window.matchMedia('(max-width: 767px)').matches) {
-            $("body").removeClass("toggle-menu");
-            $(".menu-hamburger i.menu-hamburger-close").hide();
-            $(".menu-hamburger i.menu-hamburger-collapse").show();         
-        }
-    };
-    mediaSize();
-    window.addEventListener('resize', mediaSize, false);
     /* -- Switchery -- */
     var setting_first = document.querySelector('.js-switch-setting-first');
     var switchery = new Switchery(setting_first, { color: '#0442ba', size: 'small' });

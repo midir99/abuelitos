@@ -7,9 +7,9 @@ from . import models
 @admin.register(models.Locality)
 class LocalityAdmin(admin.ModelAdmin):
     readonly_fields = (
-            "id",
-            "created_at",
-            "updated_at",
+        "id",
+        "created_at",
+        "updated_at",
     )
     list_display = (
         "display_full_code",

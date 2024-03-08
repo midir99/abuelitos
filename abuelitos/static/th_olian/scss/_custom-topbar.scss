@@ -11,9 +11,9 @@
     transition: all 0.3s ease;    
   }
   .rightbar {
-    margin-left: 80px;
+    margin-left: 0;
     .topbar {
-      left: 80px;
+      left: 0;
     }
   }
 }
@@ -57,6 +57,7 @@
     background-color: $white;
     padding: 15px 25px;
     border-bottom: 1px solid $border-color;
+    left: 0;
     .mobile-logobar {
       display: inline-block;  
       img {
@@ -141,8 +142,8 @@
     background-color: $topbar-bg-color;
     padding: 15px 30px;
     position: fixed;
-    z-index: 1;
-    left: 250px;
+    z-index: 10;
+    left: 0;
     right: 0;
     border-bottom: 1px solid $border-color;
     .dropdown-toggle {
@@ -434,6 +435,34 @@
               font-size: 14px;
             }
         }
+        .menubar-toggle {
+            display: none;
+            .menu-hamburger {
+                span.iconbar {
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 20px;
+                    border-radius: 3px;
+                    color: $dark;
+                }
+                i {
+                 vertical-align: unset;
+                }
+                .menu-hamburger-close {
+                    display: none;
+                }
+                &:hover {
+                  span.iconbar {
+                    color: $primary;
+                    background-color: $secondary-rgba;
+                  }
+                  img {
+                    filter: invert(0.7) sepia(1) saturate(14) hue-rotate(195deg);
+                  }
+                }
+            }
+        }
     }  
 }
 
@@ -515,7 +544,7 @@
 }
 
 .breadcrumbbar {
-    margin: 100px 30px 0 30px;
+    margin: 174px 30px 0 30px;
     padding: 0;
     background-color: transparent;
     border-radius: 3px;  

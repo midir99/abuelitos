@@ -15,12 +15,12 @@ clean:
 
 
 format:
-	python3 -m black abuelitos
-	python3 -m isort abuelitos
+	python3 -m black .
+	python3 -m isort .
 
 
 lint:
-	python3 -m pylint abuelitos
+	python3 -m pylint .
 
 
 test:

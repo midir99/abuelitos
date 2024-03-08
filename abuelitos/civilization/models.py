@@ -300,6 +300,22 @@ class Person(models.Model):
         blank=True,
         help_text=_("Caption for the fifth picture of this person."),
     )
+    father = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        related_name="father+",
+        blank=True,
+        null=True,
+        help_text=_("Father of this person."),
+    )
+    mother = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        related_name="mother+",
+        blank=True,
+        null=True,
+        help_text=_("Mother of this person."),
+    )
     locality = models.ForeignKey(
         Locality,
         on_delete=models.SET_NULL,
