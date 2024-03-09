@@ -1,4 +1,8 @@
+from django.contrib import auth
 from django.contrib.auth import views as views_auth
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views import generic as views_generic
 
 
@@ -9,6 +13,13 @@ class LoginView(views_auth.LoginView):
 login_view = LoginView.as_view()
 
 
+class LogoutConfirmView(views_generic.TemplateView):
+    template_name = "accounts/profile_logout_confirm.html"
+
+
+logout_confirm_view = LogoutConfirmView.as_view()
+
+
 class LogoutView(views_auth.LogoutView):
     template_name = "accounts/logged_out.html"
 
@@ -16,18 +27,13 @@ class LogoutView(views_auth.LogoutView):
 logout_view = LogoutView.as_view()
 
 
-class PasswordChangeView(views_auth.PasswordChangeView):
+class PasswordChangeView(SuccessMessageMixin, views_auth.PasswordChangeView):
     template_name = "accounts/profile_password_change_form.html"
+    success_message = _("Your password was updated successfully.")
+    success_url = reverse_lazy("accounts:password_change")
 
 
 password_change_view = PasswordChangeView.as_view()
-
-
-class PasswordChangeDoneView(views_auth.PasswordChangeDoneView):
-    template_name = "accounts/password_change_done.html"
-
-
-password_change_done_view = PasswordChangeDoneView.as_view()
 
 
 class PasswordResetView(views_auth.PasswordResetView):
@@ -58,8 +64,18 @@ class PasswordResetCompleteView(views_auth.PasswordResetCompleteView):
 password_reset_complete_view = PasswordResetCompleteView.as_view()
 
 
-class ProfileView(views_generic.TemplateView):
-    pass
+class ProfileView(SuccessMessageMixin, views_generic.UpdateView):
+    template_name = "accounts/profile_my_information.html"
+    model = auth.get_user_model()
+    fields = [
+        "username",
+        "first_name",
+        "last_name",
+    ]
+    success_message = _("Your profile was updated successfully.")
+
+    def get_object(self, queryset=None):
+        return self.get_queryset().get(pk=self.request.user.pk)
 
 
 profile_view = ProfileView.as_view()

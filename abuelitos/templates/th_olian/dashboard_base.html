@@ -236,7 +236,31 @@
             {% endblock breadcrumbbar %}
             {% block contentbar %}
             <!-- Start Contentbar -->
-            <div class="contentbar">{% block contentbar_content %}{% endblock contentbar_content %}</div>
+            <div class="contentbar">
+                {% block contentbar_alerts %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}
+                        <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {% endif %}
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% endblock contentbar_alerts %}
+                {% block contentbar_content %}{% endblock contentbar_content %}
+            </div>
             <!-- End Contentbar -->
             {% endblock contentbar %}
             {% block footerbar %}

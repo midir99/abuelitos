@@ -1,0 +1,63 @@
+{% extends "accounts/profile_base.html" %}
+{% load i18n static %}
+
+{% block active_section_my_information %}active{% endblock active_section_my_information %}
+
+{% block breadcrumbbar_title %}{% translate "My Information" %}{% endblock breadcrumbbar_title %}
+
+{% block breadcrumbbar_list %}
+{{ block.super }}
+<li class="breadcrumb-item active" aria-current="page">{% translate "My Information" %}</li>
+{% endblock breadcrumbbar_list %}
+
+{% block tab_content %}
+<!-- My Profile Start -->
+<div class="tab-pane active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"> 
+    <div class="card m-b-30">
+        <div class="card-header">                                
+            <h5 class="card-title mb-0">{% translate "My Information" %}</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url "accounts:profile" %}">
+                {% csrf_token %}
+                {% if form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.username.id_for_label }}">{% translate "Username" %}</label>
+                        <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}" value="{{ form.username.initial }}" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}">
+                        <div class="invalid-feedback">{% for error in form.username.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email">{% translate "Email" %}</label>
+                        <input type="email" class="form-control" value="{{ user.email }}" id="email" disabled>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.first_name.id_for_label }}">{% translate "First Name" %}</label>
+                        <input type="text" class="form-control {% if form.first_name.errors %}is-invalid{% endif %}" value="{{ form.first_name.initial }}" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.html_name }}">
+                        <div class="invalid-feedback">{% for error in form.first_name.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.last_name.id_for_label }}">{% translate "Last Name" %}</label>
+                        <input type="text" class="form-control {% if form.last_name.errors %}is-invalid{% endif %}" value="{{ form.last_name.initial }}" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.html_name }}">
+                        <div class="invalid-feedback">{% for error in form.last_name.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="last_login">{% translate "Last Time Logged In" %}</label>
+                        <input type="text" class="form-control" value="{{ user.last_login }}" id="last_login" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="date_joined">{% translate "Date Joined" %}</label>
+                        <input type="text" class="form-control" value="{{ user.date_joined }}" id="date_joined" disabled>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary-rgba font-16"><i class="ri-save-line mr-2"></i>{% translate "Update My Information" %}</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- My Profile End -->
+{% endblock tab_content %}

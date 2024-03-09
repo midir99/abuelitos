@@ -1,0 +1,42 @@
+{% extends "accounts/profile_base.html" %}
+{% load i18n static %}
+
+{% block active_section_logout %}active{% endblock active_section_logout %}
+
+{% block breadcrumbbar_title %}{% translate "Log Out" %}{% endblock breadcrumbbar_title %}
+
+{% block breadcrumbbar_list %}
+{{ block.super }}
+<li class="breadcrumb-item active" aria-current="page">{% translate "Log Out" %}</li>
+{% endblock breadcrumbbar_list %}
+
+{% block tab_content %}
+
+<!-- My Logout Start -->
+<div class="tab-pane active" id="v-pills-logout" role="tabpanel" aria-labelledby="v-pills-logout-tab">
+    <div class="card m-b-30">
+        <div class="card-header">                                
+            <h5 class="card-title mb-0">{% translate "Log Out" %}</h5>                                       
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-xl-4">
+                    <div class="logout-content text-center my-5">
+                        <img src="{% static "th_olian/images/ecommerce/logout.svg" %}" class="img-fluid mb-5" alt="logout">
+                        <h2 class="text-success">{% translate "Log Out?" %}</h2>
+                        <p class="my-4">{% translate "Are you sure to want to log out?" %}</p>
+                        <div class="button-list">
+                            <form method="post" action="{% url "accounts:logout" %}">
+                            {% csrf_token %}
+                                <button type="submit" class="btn btn-danger font-16"><i class="ri-check-line mr-2"></i>{% translate "Yes, I'm sure" %}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- My Logout End -->
+
+{% endblock tab_content %}

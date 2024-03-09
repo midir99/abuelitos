@@ -16,9 +16,9 @@
             </div>
             <div class="card-body">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link mb-2 {% block active_section_my_info %}{% endblock active_section_my_info %}" href="{% url "accounts:profile" %}" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="ri-dashboard-line mr-2"></i>{% translate "My Information" %}</a>
-                    <a class="nav-link mb-2 {% block active_section_change_pwd %}{% endblock active_section_change_pwd %}" href="{% url "accounts:password_change" %}" role="tab" aria-controls="v-pills-order" aria-selected="false"><i class="ri-dropbox-line mr-2"></i>{% translate "Change password" %}</a>
-                    <a class="nav-link text-danger" href="#v-pills-logout" role="tab" aria-controls="v-pills-logout" aria-selected="false"><i class="ri-shut-down-line mr-2"></i>{% translate "Log Out" %}</a>
+                    <a class="nav-link mb-2 {% block active_section_my_information %}{% endblock active_section_my_information %}" href="{% url "accounts:profile" %}" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="ri-user-line mr-2"></i>{% translate "My Information" %}</a>
+                    <a class="nav-link mb-2 {% block active_section_password_change %}{% endblock active_section_password_change%}" href="{% url "accounts:password_change" %}" role="tab" aria-controls="v-pills-order" aria-selected="false"><i class="ri-key-line mr-2"></i>{% translate "Change Password" %}</a>
+                    <a class="nav-link text-danger {% block active_section_logout %}{% endblock active_section_logout %}" href="{% url "accounts:logout_confirm" %}" role="tab" aria-controls="v-pills-logout" aria-selected="false"><i class="ri-shut-down-line mr-2"></i>{% translate "Log Out" %}</a>
                 </div>
             </div>
         </div>
