@@ -24,7 +24,7 @@ class Command(base.BaseCommand):
         parser.add_argument(
             "outputfile",
             type=str,
-            help="The file to dump the fixture (i.e., civilization/fixtures/civilization/localities_{agee_name}.json).",
+            help="The file to dump the fixture (i.e., civilizations/fixtures/civilizations/localities_{agee_name}.json).",
         )
         parser.add_argument(
             "--quotechar",
@@ -55,7 +55,7 @@ def transform_inegi_loc_to_model_loc(inegi_loc):
     tzinfo = timezone.get_current_timezone() if settings.USE_TZ else None
     timestamp = datetime.datetime.now(tz=tzinfo)
     return {
-        "model": "civilization.Locality",
+        "model": "civilizations.Locality",
         "fields": {
             "agee_code": inegi_loc["CVE_ENT"],
             "agee_name": inegi_loc["NOM_ENT"],

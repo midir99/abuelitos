@@ -38,6 +38,11 @@ class PersonAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ("full_name",),
     }
+    raw_id_fields = (
+        "locality",
+        "father",
+        "mother",
+    )
     readonly_fields = (
         "id",
         "created_at",

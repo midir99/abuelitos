@@ -19,6 +19,7 @@
                                         <div class="form-head">
                                             <a href="index.html" class="logo"><img src="{% static "th_olian/images/logo.svg" %}" class="img-fluid" alt="logo"></a>
                                         </div>
+                                        <h4 class="text-primary my-4">{% translate "Log in!" %}</h4>
                                         {% if next %}
                                             {% if user.is_authenticated %}
                                             <div class="alert alert-danger" role="alert">{% translate "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}</div>
@@ -26,7 +27,6 @@
                                             <div class="alert alert-danger" role="alert">{% translate "Please login to see this page." %}</div>
                                             {% endif %}
                                         {% endif %}
-                                        <h4 class="text-primary my-4">{% translate "Log in!" %}</h4>
                                         {% if form.errors %}
                                         <div class="alert alert-danger" role="alert">{% translate "Your username and password didn't match. Please try again." %}</div>
                                         {% endif %}

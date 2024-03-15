@@ -147,13 +147,13 @@
                                                 {% if user.is_authenticated %}
                                                 <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{% static "th_olian/images/users/profile.svg" %}" class="img-fluid" alt="profile"><span class="live-icon">{{ user.username }}</span></a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profilelink">
-                                                    <a class="dropdown-item" href="#"><i class="ri-user-6-line"></i>{% translate "My profile" %}</a>
+                                                    <a class="dropdown-item" href="{% url "accounts:profile" %}"><i class="ri-user-6-line"></i>{% translate "My Profile" %}</a>
                                                     {% if user.is_staff %}
-                                                    <a class="dropdown-item" href="{% url "admin:index" %}"><i class="ri-settings-3-line"></i>{% translate "Staff site" %}</a>
+                                                    <a class="dropdown-item" href="{% url "admin:index" %}"><i class="ri-settings-3-line"></i>{% translate "Staff Site" %}</a>
                                                     {% endif %}
                                                     <form method="post" action="{% url "accounts:logout" %}">
                                                         {% csrf_token %}
-                                                        <button type="submit" class="dropdown-item text-danger"><i class="ri-shut-down-line"></i>{% translate "Log out" %}</button> 
+                                                        <button type="submit" class="dropdown-item text-danger"><i class="ri-shut-down-line"></i>{% translate "Log Out" %}</button> 
                                                     </form>
                                                 </div>
                                                 {% else %}
@@ -189,8 +189,8 @@
                     <nav class="horizontal-nav mobile-navbar fixed-navbar">
                         <div class="collapse navbar-collapse" id="navbar-menu">
                             <ul class="horizontal-menu"> 
-                                <li class="scroll"><a href="widgets.html"><i class="ri-user-search-line"></i><span>{% translate "Find People" %}</span></a></li>
-                                <li class="scroll"><a href="widgets.html"><i class="ri-map-2-line"></i><span>{% translate "Find Localities" %}</span></a></li>
+                                <li class="scroll"><a href="{% url "civilizations:people_search" %}"><i class="ri-user-search-line"></i><span>{% translate "Search For People" %}</span></a></li>
+                                <li class="scroll"><a href="widgets.html"><i class="ri-map-2-line"></i><span>{% translate "Search For Localities" %}</span></a></li>
                             </ul>
                         </div>
                     </nav>

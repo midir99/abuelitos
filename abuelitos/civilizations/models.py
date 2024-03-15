@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Locality(models.Model):
     """
-    The fields in this model are taken from the
+    The fields in this model were taken from the
     "Single Catalog of Keys of State, Municipal and Local Geostatistical Areas" report
     provided by the INEGI.
 

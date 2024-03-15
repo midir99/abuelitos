@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
-    "civilization.apps.CivilizationConfig",
+    "civilizations.apps.CivilizationsConfig",
 ]
 
 MIDDLEWARE = [

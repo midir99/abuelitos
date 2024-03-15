@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CivilizationConfig(AppConfig):
+class CivilizationsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "civilization"
+    name = "civilizations"
