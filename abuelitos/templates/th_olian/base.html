@@ -14,16 +14,17 @@
     <link rel="shortcut icon" href="{% static "th_olian/images/favicon.ico" %}">
     {% endblock base_icons %}
     {% block more_icons %}{% endblock more_icons %}
+    {% block more_css %}{% endblock more_css %}
     {% block base_css %}
     <link href="{% static "th_olian/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
     <link href="{% static "th_olian/css/icons.css" %}" rel="stylesheet" type="text/css">
     <link href="{% static "th_olian/css/style.css" %}" rel="stylesheet" type="text/css">
     {% endblock base_css %}
-    {% block more_css %}{% endblock more_css %}
 </head>
 <body class="horizontal-layout">
-    {% block content %}{% endblock content %}        
+    {% block content %}{% endblock content %}
     {% block base_js %}
+    <script src="https://unpkg.com/htmx.org@1.9.11"></script>
     <script src="{% static "th_olian/js/jquery.min.js" %}"></script>
     <script src="{% static "th_olian/js/popper.min.js" %}"></script>
     <script src="{% static "th_olian/js/bootstrap.min.js" %}"></script>

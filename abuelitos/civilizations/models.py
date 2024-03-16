@@ -3,6 +3,8 @@ import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from . import managers
+
 
 class Locality(models.Model):
     """
@@ -11,6 +13,31 @@ class Locality(models.Model):
     provided by the INEGI.
 
     https://www.inegi.org.mx/app/ageeml/
+
+    In this project, Mexico is considered to be divided in states, municipalities
+    and localities.
+
+    The attributes agee_code and agee_name refer to the state.
+    The attributes agem_code and agem_name refer to the municipalities.
+    The attributes loc_code and loc_name refer to the localities.
+
+    Here is an example of how to identify the locality of
+    San Andres de la Cal, Tepoztlan, Morelos.
+
+    State
+    -----
+    agee_code: 17
+    agee_name: Morelos
+
+    Municipality
+    ------------
+    agem_code: 020
+    agem_name: Tepoztlan
+
+    Locality
+    --------
+    loc_code: 0005
+    loc_name: San Andres de la Cal
     """
 
     id = models.UUIDField(
@@ -149,6 +176,8 @@ class Locality(models.Model):
             "populated automatically."
         ),
     )
+
+    objects = managers.LocalityManager()
 
     class Meta:
         verbose_name = _("Locality")

@@ -20,7 +20,7 @@ $(document).ready(function() {
         e.preventDefault();
         $(".infobar-settings-sidebar-overlay").css({"background": "rgba(0,0,0,0.4)", "position": "fixed"});
         $("#infobar-settings-sidebar").addClass("sidebarshow");
-    }); 
+    });
     $("#infobar-settings-close").on("click", function(e) {
         e.preventDefault();
         $(".infobar-settings-sidebar-overlay").css({"background": "transparent", "position": "initial"});
@@ -32,11 +32,11 @@ $(document).ready(function() {
         $("body").toggleClass("toggle-menu");
         $(".menu-hamburger i").toggle();
     });
-    /* -- Menu Topbar Hamburger -- */    
+    /* -- Menu Topbar Hamburger -- */
     $(".topbar-toggle-hamburger").on("click", function(e) {
         e.preventDefault();
         $("body").toggleClass("topbar-toggle-menu");
-        $(".topbar-toggle-hamburger i").toggle();    
+        $(".topbar-toggle-hamburger i").toggle();
     });
     /* -- Switchery -- */
     var setting_first = document.querySelector('.js-switch-setting-first');
@@ -59,4 +59,11 @@ $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
     /* -- Bootstrap Tooltip -- */
     $('[data-toggle="tooltip"]').tooltip();
+});
+
+/* -- HTMX and Select2 -- */
+window.addEventListener("DOMContentLoaded", (e) => {
+    $('select').on('select2:select', function (e) {
+        $(this).closest('select').get(0).dispatchEvent(new Event('change'));
+    });
 });

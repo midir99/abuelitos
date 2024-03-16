@@ -1,0 +1,5 @@
+{% load i18n %}
+<option value="" selected>{% translate "All Municipalities" %}</option>
+{% for m in municipalities %}
+<option value="{{ m.agem_code }}">{{ m.agem_name }}</option>
+{% endfor %}

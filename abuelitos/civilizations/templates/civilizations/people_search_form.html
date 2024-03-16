@@ -4,6 +4,7 @@
 {% block more_css %}
 <link href="{% static "th_olian/plugins/footable/css/footable.bootstrap.min.css" %}" rel="stylesheet" type="text/css">
 <link href="{% static "th_olian/plugins/switchery/switchery.min.css" %}" rel="stylesheet" type="text/css">
+<link href="{% static "th_olian/plugins/select2/select2.min.css" %}" rel="stylesheet" type="text/css">
 {% endblock more_css %}
 
 {% block breadcrumbbar_title %}{% translate "Search People" %}{% endblock breadcrumbbar_title %}
@@ -44,25 +45,25 @@
                         <div class="mx-md-3"></div> 
                         <div class="form-group col-md-1">
                             <label for="{{ form.agee_code.id_for_label }}" class="sr-only">{% translate "State" %}</label>
-                            <select class="form-control {{ form.agee_code.errors|yesno:"is-invalid," }}" id="{{ form.agee_code.id_for_label }}" name="{{ form.agee_code.html_name }}">
-                                <option value="" disabled selected>{% translate "State" %}</option>
+                            <select class="select2-single form-control {{ form.agee_code.errors|yesno:"is-invalid," }}" id="{{ form.agee_code.id_for_label }}" name="{{ form.agee_code.html_name }}" hx-get="{% url "civilizations:options_for_municipalities" %}" hx-target="#{{ form.agem_code.id_for_label }}">
+                                <option value="" selected>{% translate "All States" %}</option>
                                 {% for widget in form.agee_code.subwidgets %}{{ widget }}{% endfor %}
                             </select>
                             <div class="invalid-feedback">{% for error in form.agee_code.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputState" class="sr-only">{% translate "Municipality" %}</label>
-                            <select id="" class="form-control" disabled>
-                                <option selected="">{% translate "Municipality" %}</option>
-                                <option>...</option>
+                            <label for="{{ form.agem_code.id_for_label }}" class="sr-only">{% translate "Municipality" %}</label>
+                            <select class="select2-single form-control {{ form.agem_code.errors|yesno:"is-invalid," }}" id="{{ form.agem_code.id_for_label }}" name="{{ form.agem_code.html_name }}" hx-get="{% url "civilizations:options_for_localities" %}" hx-target="#{{ form.loc_code.id_for_label }}" hx-include="[name='{{ form.agee_code.html_name }}'], [name='{{ form.agem_code.html_name }}']">
+                                <option value="" selected>{% translate "All Municipalities" %}</option>
                             </select>
+                            <div class="invalid-feedback">{% for error in form.agem_code.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputState" class="sr-only">{% translate "Locality" %}</label>
-                            <select id="" class="form-control" disabled>
-                                <option selected="">{% translate "Locality" %}</option>
-                                <option>...</option>
+                            <label for="{{ form.loc_code.id_for_label }}" class="sr-only">{% translate "Locality" %}</label>
+                            <select class="select2-single form-control {{ form.loc_code.errors|yesno:"is-invalid," }}" id="{{ form.loc_code.id_for_label }}" name="{{ form.loc_code.html_name }}">
+                                <option value="" selected>{% translate "All Localities" %}</option>
                             </select>
+                            <div class="invalid-feedback">{% for error in form.loc_code.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
                         </div>
                         <div class="form-group col-md-2 text-right">
                             <button type="submit" class="btn btn-primary">{% translate "Search" %}</button>
@@ -133,8 +134,18 @@
 {% block more_js %}
 <script src="{% static "th_olian/js/horizontal-menu.js" %}"></script>
 <script src="{% static "th_olian/plugins/switchery/switchery.min.js" %}"></script>
+<script src="{% static "th_olian/plugins/select2/select2.min.js" %}"></script>
+<script src="{% static "th_olian/js/custom/custom-form-select.js" %}"></script>
 <script src="{% static "th_olian/plugins/moment/moment.js" %}"></script>     
 <script src="{% static "th_olian/plugins/footable/js/footable.min.js" %}"></script>     
 <script src="{% static "th_olian/js/custom/custom-table-footable.js" %}"></script>    
 <script src="{% static "th_olian/js/core.js" %}"></script>
+<script>
+    $('#{{ form.agee_code.id_for_label }}').change(function() {
+        console.log('hoal')
+        var selectLocality = $('#{{ form.loc_code.id_for_label }}')
+        selectLocality.empty()
+        selectLocality.append(`<option value="" selected>{% translate "All Localities" %}</option>`)
+    })
+</script>
 {% endblock more_js %}
