@@ -45,23 +45,38 @@
                         <div class="mx-md-3"></div> 
                         <div class="form-group col-md-1">
                             <label for="{{ form.agee_code.id_for_label }}" class="sr-only">{% translate "State" %}</label>
-                            <select class="select2-single form-control {{ form.agee_code.errors|yesno:"is-invalid," }}" id="{{ form.agee_code.id_for_label }}" name="{{ form.agee_code.html_name }}" hx-get="{% url "civilizations:options_for_municipalities" %}" hx-target="#{{ form.agem_code.id_for_label }}">
+                            <select class="select2-single form-control {{ form.agee_code.errors|yesno:"is-invalid," }}" id="{{ form.agee_code.id_for_label }}" name="{{ form.agee_code.html_name }}" hx-get="{% url "civilizations:options_for_agem_code" %}" hx-target="#{{ form.agem_code.id_for_label }}">
+                                {% for s in options_for_agee_code %}
+                                {% if forloop.first %}<option value="">{% translate "All States" %}</option>{% endif %}
+                                <option value="{{ s.agee_code }}" {{ s.is_selected|yesno:"selected," }}>{{ s.agee_name }}</option>
+                                {% empty %}
                                 <option value="" selected>{% translate "All States" %}</option>
                                 {% for widget in form.agee_code.subwidgets %}{{ widget }}{% endfor %}
+                                {% endfor %}
                             </select>
                             <div class="invalid-feedback">{% for error in form.agee_code.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="{{ form.agem_code.id_for_label }}" class="sr-only">{% translate "Municipality" %}</label>
-                            <select class="select2-single form-control {{ form.agem_code.errors|yesno:"is-invalid," }}" id="{{ form.agem_code.id_for_label }}" name="{{ form.agem_code.html_name }}" hx-get="{% url "civilizations:options_for_localities" %}" hx-target="#{{ form.loc_code.id_for_label }}" hx-include="[name='{{ form.agee_code.html_name }}'], [name='{{ form.agem_code.html_name }}']">
+                            <select class="select2-single form-control {{ form.agem_code.errors|yesno:"is-invalid," }}" id="{{ form.agem_code.id_for_label }}" name="{{ form.agem_code.html_name }}" hx-get="{% url "civilizations:options_for_loc_code" %}" hx-target="#{{ form.loc_code.id_for_label }}" hx-include="[name='{{ form.agee_code.html_name }}'], [name='{{ form.agem_code.html_name }}']">
+                                {% for m in options_for_agem_code %}
+                                {% if forloop.first %}<option value="">{% translate "All Municipalities" %}</option>{% endif %}
+                                <option value="{{ m.agem_code }}" {{ m.is_selected|yesno:"selected," }}>{{ m.agem_name }}</option>
+                                {% empty %}
                                 <option value="" selected>{% translate "All Municipalities" %}</option>
+                                {% endfor %}
                             </select>
                             <div class="invalid-feedback">{% for error in form.agem_code.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="{{ form.loc_code.id_for_label }}" class="sr-only">{% translate "Locality" %}</label>
                             <select class="select2-single form-control {{ form.loc_code.errors|yesno:"is-invalid," }}" id="{{ form.loc_code.id_for_label }}" name="{{ form.loc_code.html_name }}">
+                                {% for l in options_for_loc_code %}
+                                {% if forloop.first %}<option value="">{% translate "All Localities" %}</option>{% endif %}
+                                <option value="{{ l.loc_code }}" {{ l.is_selected|yesno:"selected," }}>{{ l.loc_name }}</option>
+                                {% empty %}
                                 <option value="" selected>{% translate "All Localities" %}</option>
+                                {% endfor %}
                             </select>
                             <div class="invalid-feedback">{% for error in form.loc_code.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
                         </div>
@@ -71,32 +86,60 @@
                     </div>
                 </form>
                 <div class="mt-3"></div>
-                <div class="table-responsive">
-                    <table class="table foo-pagination-table" data-paging="true" data-empty="{% translate "We did not find anyone :(" %}">
+                {% comment %}
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+                {% endcomment %}
+                <div class="table-responsive m-b-30">
+                    <table class="table table-sm">
                         <thead class="thead-light">
                             <tr>
-                                <th>{% translate "Full Name" %}</th>
-                                <th>{% translate "Alias" %}</th>
-                                <th>{% translate "Date Of Birth" %}</th>
-                                <th>{% translate "Date Of Death" %}</th>
-                                <th>{% translate "Father" %}</th>
-                                <th>{% translate "Mother" %}</th>
-                                <th>{% translate "Locality" %}</th>
-                            </tr> 
+                                <th scope="col">{% translate "Full Name" %}</th>
+                                <th scope="col">{% translate "Alias" %}</th>
+                                <th scope="col">{% translate "Date Of Birth" %}</th>
+                                <th scope="col">{% translate "Date Of Death" %}</th>
+                                <th scope="col">{% translate "Father" %}</th>
+                                <th scope="col">{% translate "Mother" %}</th>
+                                <th scope="col">{% translate "Locality" %}</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Jorge Alarcon Alvarez</td>
+                                <th scope="row">Jorge Alarcon Alvarez</th>
                                 <td>Cho</td>
-                                <td>1999-01-22</td>
+                                <td>Jan 22, 1999</td>
                                 <td>-</td>
                                 <td>Jorge Alarcon Duran</td>
                                 <td>Leticia Alvarez Santoyo</td>
-                                <td>San Andres de la Cal</td>
+                                <td>San Andres de la Cal, Tepoztlan, Morelos.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
             </div>
         </div> 
     </div>

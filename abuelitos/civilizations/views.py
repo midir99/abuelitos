@@ -16,31 +16,61 @@ class PeopleSearchView(generic_views.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = forms.PeopleSearchForm(self.request.GET)
+        context["options_for_agee_code"] = []
+        context["options_for_agem_code"] = []
+        context["options_for_loc_code"] = []
+        agee_code = self.request.GET.get("agee_code")
+        if agee_code in choices.AGEECode:
+            context["options_for_agee_code"] = [
+                {
+                    "agee_code": state.value,
+                    "agee_name": state.label,
+                    "is_selected": state.value == agee_code,
+                }
+                for state in choices.AGEECode
+            ]
+            agem_code = self.request.GET.get("agem_code")
+            if agem_code:
+                context["options_for_agem_code"] = (
+                    models.Locality.objects.get_municipalities_of_state(agee_code)
+                )
+                for m in context["options_for_agem_code"]:
+                    m["is_selected"] = m["agem_code"] == agem_code
+                loc_code = self.request.GET.get("loc_code")
+                if loc_code:
+                    context["options_for_loc_code"] = (
+                        models.Locality.objects.get_localities_of_municipality(
+                            agee_code, agem_code
+                        )
+                    )
+                    for l in context["options_for_loc_code"]:
+                        l["is_selected"] = l["loc_code"] == loc_code
+
         return context
 
 
 people_search_view = PeopleSearchView.as_view()
 
 
-class OptionsForMunicipalitiesView(generic_views.TemplateView):
-    template_name = "civilizations/options_for_municipalities.html"
+class OptionsForAGEMCodeView(generic_views.TemplateView):
+    template_name = "civilizations/options_for_agem_code.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         agee_code = self.request.GET.get("agee_code")
-        context["municipalities"] = []
+        context["localities"] = []
         if agee_code in choices.AGEECode:
-            context["municipalities"] = (
-                models.Locality.objects.get_municipalities_of_state(agee_code)
+            context["localities"] = models.Locality.objects.get_municipalities_of_state(
+                agee_code
             )
         return context
 
 
-options_for_municipalities_view = OptionsForMunicipalitiesView.as_view()
+options_for_agem_code_view = OptionsForAGEMCodeView.as_view()
 
 
-class OptionsForLocalitiesView(generic_views.TemplateView):
-    template_name = "civilizations/options_for_localities.html"
+class OptionsForLocCodeView(generic_views.TemplateView):
+    template_name = "civilizations/options_for_loc_code.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,4 +82,4 @@ class OptionsForLocalitiesView(generic_views.TemplateView):
         return context
 
 
-options_for_localities_view = OptionsForLocalitiesView.as_view()
+options_for_loc_code_view = OptionsForLocCodeView.as_view()
