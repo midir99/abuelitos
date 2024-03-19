@@ -27,9 +27,9 @@
                     {% if form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>{% endif %}
                     <div class="form-row">
                         <div class="form-group col-md-2">
-                            <label for="{{ form.full_name.id_for_label }}" class="sr-only">{% translate "Name Or Alias" %}</label>
-                            <input type="text" class="form-control {{ form.full_name.errors|yesno:"is-invalid," }}" placeholder="{% translate "Name Or Alias" %}" value="{{ request.GET.full_name }}" id="{{ form.full_name.id_for_label }}" name="{{ form.full_name.html_name }}">
-                            <div class="invalid-feedback">{% for error in form.full_name.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
+                            <label for="{{ form.full_name_or_alias.id_for_label }}" class="sr-only">{% translate "Name Or Alias" %}</label>
+                            <input type="text" class="form-control {{ form.full_name_or_alias.errors|yesno:"is-invalid," }}" placeholder="{% translate "Name Or Alias" %}" value="{{ request.GET.full_name_or_alias }}" id="{{ form.full_name_or_alias.id_for_label }}" name="{{ form.full_name_or_alias.html_name }}">
+                            <div class="invalid-feedback">{% for error in form.full_name_or_alias.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
                         </div>
                         <div class="form-group col-md-1">
                             <label for="{{ form.year_of_birth.id_for_label }}" class="sr-only">{% translate "Birth Year" %}</label>
@@ -115,31 +115,35 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for person in object_list %}
                             <tr>
-                                <th scope="row">Jorge Alarcon Alvarez</th>
-                                <td>Cho</td>
-                                <td>Jan 22, 1999</td>
-                                <td>-</td>
-                                <td>Jorge Alarcon Duran</td>
-                                <td>Leticia Alvarez Santoyo</td>
-                                <td>San Andres de la Cal, Tepoztlan, Morelos.</td>
+                                <th scope="row">{{ person.full_name }}</th>
+                                <td>{{ person.alias }}</td>
+                                <td>{{ person.date_of_birth }}</td>
+                                <td>{{ person.date_of_death }}</td>
+                                <td>{{ person.father.full_name }}</td>
+                                <td>{{ person.mother.full_name }}</td>
+                                <td>{{ person.locality }}</td>
                             </tr>
+                            {% empty %}
+                            <tr><td colspan="7">{% translate "People not found!" %}</td></tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                      </ul>
-                    </nav>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
             </div>
         </div> 
     </div>
