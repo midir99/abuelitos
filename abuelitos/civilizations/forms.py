@@ -1,11 +1,11 @@
 import datetime
 
 from django import forms
-from django.core.exceptions import ValidationError
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from django.utils import timezone
 from . import choices
 
 
@@ -43,7 +43,12 @@ class PeopleSearchForm(forms.Form):
         tzinfo = timezone.get_current_timezone() if settings.USE_TZ else None
         current_year = datetime.datetime.now(tz=tzinfo).year
         if year_of_birth > current_year:
-            raise ValidationError(_("The year of birth cannot be later than %(current_year)s." % {"current_year": current_year}))
+            raise ValidationError(
+                _(
+                    "The year of birth cannot be later than %(current_year)s."
+                    % {"current_year": current_year}
+                )
+            )
         return year_of_birth
 
     def clean_year_of_death(self):
@@ -53,7 +58,12 @@ class PeopleSearchForm(forms.Form):
         tzinfo = timezone.get_current_timezone() if settings.USE_TZ else None
         current_year = datetime.datetime.now(tz=tzinfo).year
         if year_of_death > current_year:
-            raise ValidationError(_("The year of death cannot be later than %(current_year)s." % {"current_year": current_year}))
+            raise ValidationError(
+                _(
+                    "The year of death cannot be later than %(current_year)s."
+                    % {"current_year": current_year}
+                )
+            )
         return year_of_death
 
     def clean(self):

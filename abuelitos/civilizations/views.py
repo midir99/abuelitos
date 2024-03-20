@@ -1,7 +1,7 @@
 import datetime
 
-from django.views import generic as views_generic
 from django.db.models import Q
+from django.views import generic as views_generic
 
 from . import choices, forms, models
 
@@ -16,7 +16,7 @@ home_view = HomeView.as_view()
 class PeopleSearchView(views_generic.ListView):
     template_name = "civilizations/people_search_form.html"
     model = models.Person
-    paginate_by = 1
+    paginate_by = 50
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,15 +59,26 @@ class PeopleSearchView(views_generic.ListView):
             return queryset
         full_name_or_alias = form.cleaned_data["full_name_or_alias"]
         if full_name_or_alias:
-            queryset = queryset.filter(Q(full_name__icontains=full_name_or_alias) | Q(alias__icontains=full_name_or_alias))
+            queryset = queryset.filter(
+                Q(full_name__icontains=full_name_or_alias)
+                | Q(alias__icontains=full_name_or_alias)
+            )
         year_of_birth = form.cleaned_data["year_of_birth"]
         if year_of_birth is not None:
-            date_start = datetime.date(year_of_birth - 5, 1, 1) if year_of_birth >= 5 else datetime.date(1, 1, 1)
+            date_start = (
+                datetime.date(year_of_birth - 5, 1, 1)
+                if year_of_birth >= 5
+                else datetime.date(1, 1, 1)
+            )
             date_end = datetime.date(year_of_birth + 5, 12, 31)
             queryset = queryset.filter(date_of_birth__range=(date_start, date_end))
         year_of_death = form.cleaned_data["year_of_death"]
         if year_of_death is not None:
-            date_start = datetime.date(year_of_death - 5, 1, 1) if year_of_death >= 5 else datetime.date(1, 1, 1)
+            date_start = (
+                datetime.date(year_of_death - 5, 1, 1)
+                if year_of_death >= 5
+                else datetime.date(1, 1, 1)
+            )
             date_end = datetime.date(year_of_death + 5, 12, 31)
             queryset = queryset.filter(date_of_death__range=(date_start, date_end))
         agee_code = form.cleaned_data["agee_code"]

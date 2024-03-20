@@ -1,5 +1,5 @@
 {% extends "civilizations/people_base.html" %}
-{% load i18n static %}
+{% load i18n static civilizations_extras %}
 
 {% block more_css %}
 <link href="{% static "th_olian/plugins/footable/css/footable.bootstrap.min.css" %}" rel="stylesheet" type="text/css">
@@ -41,8 +41,7 @@
                             <input type="number" class="form-control {{ form.year_of_death.errors|yesno:"is-invalid," }}" placeholder="{% translate "Death Year" %}" value="{{ request.GET.year_of_death }}" id="{{ form.year_of_death.id_for_label }}" name="{{ form.year_of_death.html_name }}">
                             <div class="invalid-feedback">{% for error in form.year_of_death.errors %}<li>{{ error|escape }}</li>{% endfor %}</div>
                         </div>
-                        <div class="mx-md-5"></div> 
-                        <div class="mx-md-3"></div> 
+                        <div class="mx-md-auto"></div>
                         <div class="form-group col-md-1">
                             <label for="{{ form.agee_code.id_for_label }}" class="sr-only">{% translate "State" %}</label>
                             <select class="select2-single form-control {{ form.agee_code.errors|yesno:"is-invalid," }}" id="{{ form.agee_code.id_for_label }}" name="{{ form.agee_code.html_name }}" hx-get="{% url "civilizations:options_for_agem_code" %}" hx-target="#{{ form.agem_code.id_for_label }}">
@@ -118,12 +117,12 @@
                             {% for person in object_list %}
                             <tr>
                                 <th scope="row">{{ person.full_name }}</th>
-                                <td>{{ person.alias }}</td>
-                                <td>{{ person.date_of_birth }}</td>
-                                <td>{{ person.date_of_death }}</td>
-                                <td>{{ person.father.full_name }}</td>
-                                <td>{{ person.mother.full_name }}</td>
-                                <td>{{ person.locality }}</td>
+                                <td>{{ person.alias|default:"-" }}</td>
+                                <td>{{ person.date_of_birth|default:"-" }}</td>
+                                <td>{{ person.date_of_death|default:"-" }}</td>
+                                <td>{{ person.father.full_name|default:"-" }}</td>
+                                <td>{{ person.mother.full_name|default:"-" }}</td>
+                                <td>{{ person.locality|default:"-" }}</td>
                             </tr>
                             {% empty %}
                             <tr><td colspan="7">{% translate "People not found!" %}</td></tr>
@@ -131,19 +130,7 @@
                         </tbody>
                     </table>
                 </div>
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-end">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                  </ul>
-                </nav>
+                {% show_pagination paginator page_obj request.GET %}
             </div>
         </div> 
     </div>
