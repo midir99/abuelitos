@@ -1,18 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@font-face {
+    font-family: Munson;
+    src: url("../fonts/munson_roman.woff2?v=1.0") format("woff2"), url("../fonts/munson_roman.woff?v=1.0") format("woff"), url("../fonts/munson_roman.ttf?v=1.0") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap
+}
 
-$bg-body: #f4f5f7;
-$font-primary: 'Work Sans', sans-serif;
+@font-face {
+    font-family: Munson;
+    src: url("../fonts/munson_bolditalic.woff2?v=1.0") format("woff2"), url("../fonts/munson_bolditalic.woff?v=1.0") format("woff"), url("../fonts/munson_bolditalic.ttf?v=1.0") format("truetype");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: Munson;
+    src: url("../fonts/munson_bold.woff2?v=1.0") format("woff2"), url("../fonts/munson_bold.woff?v=1.0") format("woff"), url("../fonts/munson_bold.ttf?v=1.0") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap
+}
+
+$bg-body: #f9f8f4;
+$font-primary: Munson, "Times New Roman", serif;
 $base-font: 15px;
 $white: #ffffff;
 $black: #282828;
 $muted: #4e5d71;
-$primary: #0442ba;
+$primary: #521512;
 $secondary: #acacb4;
 $success: #9ccc34;
 $danger: #f62525;
 $warning: #fcbc04;
 $info: #25bef6;
-$light: #f4f5f7;
+$light: #f9f8f4;
 $dark: #151d2e;
 $lightgray: #d4d4d4;
 $primary-rgba: rgba(4,66,186,0.1);
@@ -37,8 +59,8 @@ $menu-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 $width: 100%;
 $height: 100%;
 $search-bg-color: #4a5263;
-$topbar-bg-color: #ffffff;
-$card-bg: #ffffff;
+$topbar-bg-color: #f9f8f4;
+$card-bg: #f5f3ed;
 $heading-color: #151d2e;
-$border-color: rgba(0,0,0,0.05);
+$border-color: #d2cfc4;
 $table-color: #151d2e;

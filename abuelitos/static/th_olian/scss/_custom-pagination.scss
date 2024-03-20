@@ -3,25 +3,38 @@
     : Custom - Pagination css :
 -----------------------------------
 */
-.page-item {	
+.page-item {
 	.page-link {
-	  	color: $primary;
+		font-size: 1.3em;
+	  	color: #6b6864;
 	  	background-color: transparent;
     	border: 1px solid $border-color;
+		border-radius: 5px;
+		padding: 4px 8px;
+		margin: 5px;
 	  	&:focus {
 		  background-color: $light;
 		  border-color: $border-color;
 		  box-shadow: 0 0 0 0.2rem lighten($primary, 30%);
 		}
 		&:hover {
-		  color: $dark;		
-		  background-color: $light;
+		  color: $white;
+		  background-color: #913929;
 		  border-color: $border-color;
+		}
+		&:first-child {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;	
+		}
+		&:last-child {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
 		}
 	}
 	&.active {
 		.page-link {
-			color: $white;
+			font-weight: 700;
+			color: #f7a74a;
 		  	background-color: $primary;
 		  	border-color: $primary;
 		}
