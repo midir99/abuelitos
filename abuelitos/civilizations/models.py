@@ -160,6 +160,20 @@ class Locality(models.Model):
         blank=True,
         help_text=_("Caption for the fifth picture of this locality."),
     )
+    slug = models.SlugField(
+        _("slug"),
+        unique=True,
+        max_length=50,
+        help_text=_("Slug to identify this locality in the website."),
+    )
+    metadata = models.JSONField(
+        _("metadata"),
+        blank=True,
+        default=dict,
+        help_text=_(
+            "Metadata for this record. Change it only if you know what you are doing!"
+        ),
+    )
     created_at = models.DateTimeField(
         _("created at"),
         auto_now_add=True,
@@ -198,12 +212,6 @@ class Person(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
-    )
-    slug = models.SlugField(
-        _("slug"),
-        unique=True,
-        max_length=50,
-        help_text=_("Slug to identify this person."),
     )
     full_name = models.CharField(
         _("full name"),
@@ -351,6 +359,27 @@ class Person(models.Model):
         blank=True,
         null=True,
         help_text=_("Locality where this person lived most of their life."),
+    )
+    is_archived = models.BooleanField(
+        _("is archived?"),
+        default=False,
+        help_text=_(
+            "If archived, the website will show no information about this person."
+        ),
+    )
+    slug = models.SlugField(
+        _("slug"),
+        unique=True,
+        max_length=50,
+        help_text=_("Slug to identify this person in the website."),
+    )
+    metadata = models.JSONField(
+        _("metadata"),
+        blank=True,
+        default=dict,
+        help_text=_(
+            "Metadata for this record. Change it only if you know what you are doing!"
+        ),
     )
     created_at = models.DateTimeField(
         _("created at"),
