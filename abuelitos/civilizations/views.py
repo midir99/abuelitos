@@ -13,14 +13,14 @@ class HomeView(views_generic.TemplateView):
 home_view = HomeView.as_view()
 
 
-class PeopleSearchView(views_generic.ListView):
-    template_name = "civilizations/people_search_form.html"
+class PersonSearchView(views_generic.ListView):
+    template_name = "civilizations/person_search_form.html"
     model = models.Person
-    paginate_by = 50
+    paginate_by = 100
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"] = forms.PeopleSearchForm(self.request.GET)
+        context["form"] = forms.PersonSearchForm(self.request.GET)
         context["options_for_agee_code"] = []
         context["options_for_agem_code"] = []
         context["options_for_loc_code"] = []
@@ -37,8 +37,7 @@ class PeopleSearchView(views_generic.ListView):
             context["options_for_agem_code"] = (
                 models.Locality.objects.get_municipalities_of_state(agee_code)
             )
-            agem_code = self.request.GET.get("agem_code")
-            if agem_code:
+            if agem_code := self.request.GET.get("agem_code"):
                 for m in context["options_for_agem_code"]:
                     m["is_selected"] = m["agem_code"] == agem_code
                 context["options_for_loc_code"] = (
@@ -46,19 +45,17 @@ class PeopleSearchView(views_generic.ListView):
                         agee_code, agem_code
                     )
                 )
-                loc_code = self.request.GET.get("loc_code")
-                if loc_code:
+                if loc_code := self.request.GET.get("loc_code"):
                     for l in context["options_for_loc_code"]:
                         l["is_selected"] = l["loc_code"] == loc_code
         return context
 
     def get_queryset(self):
         queryset = models.Person.objects.all()
-        form = forms.PeopleSearchForm(self.request.GET)
+        form = forms.PersonSearchForm(self.request.GET)
         if not form.is_valid():
             return queryset
-        full_name_or_alias = form.cleaned_data["full_name_or_alias"]
-        if full_name_or_alias:
+        if full_name_or_alias := form.cleaned_data["full_name_or_alias"]:
             queryset = queryset.filter(
                 Q(full_name__icontains=full_name_or_alias)
                 | Q(alias__icontains=full_name_or_alias)
@@ -81,19 +78,16 @@ class PeopleSearchView(views_generic.ListView):
             )
             date_end = datetime.date(year_of_death + 5, 12, 31)
             queryset = queryset.filter(date_of_death__range=(date_start, date_end))
-        agee_code = form.cleaned_data["agee_code"]
-        if agee_code:
+        if agee_code := form.cleaned_data["agee_code"]:
             queryset = queryset.filter(locality__agee_code=agee_code)
-        agem_code = form.cleaned_data["agem_code"]
-        if agem_code:
+        if agem_code := form.cleaned_data["agem_code"]:
             queryset = queryset.filter(locality__agem_code=agem_code)
-        loc_code = form.cleaned_data["loc_code"]
-        if loc_code:
+        if loc_code := form.cleaned_data["loc_code"]:
             queryset = queryset.filter(locality__loc_code=loc_code)
         return queryset
 
 
-people_search_view = PeopleSearchView.as_view()
+person_search_view = PersonSearchView.as_view()
 
 
 class OptionsForAGEMCodeView(views_generic.TemplateView):

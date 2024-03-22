@@ -5,7 +5,7 @@ from . import views
 app_name = "civilizations"
 
 urlpatterns = [
-    path("", views.people_search_view, name="people_search"),
+    path("", views.person_search_view, name="person_search"),
     path(
         "options_for_agem_code/",
         views.options_for_agem_code_view,

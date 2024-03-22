@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from . import choices
 
 
-class PeopleSearchForm(forms.Form):
+class PersonSearchForm(forms.Form):
     full_name_or_alias = forms.CharField(
         required=False,
         max_length=200,
