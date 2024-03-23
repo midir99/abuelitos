@@ -1,8 +1,5 @@
 from django import template
-from django.core import cache
-from django.db import models as db_models
 
-from .. import choices, models
 
 register = template.Library()
 
