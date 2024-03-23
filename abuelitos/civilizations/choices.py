@@ -1,6 +1,41 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+_AGEECodeAbbreviation = {
+    "01": "Ags.",
+    "02": "B.C.",
+    "03": "B.C.S.",
+    "04": "Camp.",
+    "05": "Coah.",
+    "06": "Col.",
+    "07": "Chis.",
+    "08": "Chih.",
+    "09": "CDMX",
+    "10": "Dgo.",
+    "11": "Gto.",
+    "12": "Gro.",
+    "13": "Hgo.",
+    "14": "Jal.",
+    "15": "Méx.",
+    "16": "Mich.",
+    "17": "Mor.",
+    "18": "Nay.",
+    "19": "N.L.",
+    "20": "Oax.",
+    "21": "Pue.",
+    "22": "Qro.",
+    "23": "Q.R.",
+    "24": "S.L.P.",
+    "25": "Sin.",
+    "26": "Son.",
+    "27": "Tab.",
+    "28": "Tamps.",
+    "29": "Tlax.",
+    "30": "Ver.",
+    "31": "Yuc.",
+    "32": "Zac.",
+}
+
 
 class AGEECode(models.TextChoices):
     """
@@ -43,3 +78,6 @@ class AGEECode(models.TextChoices):
     AGEE_Ver = "30", _("Veracruz de Ignacio de la Llave")
     AGEE_Yuc = "31", _("Yucatán")
     AGEE_Zac = "32", _("Zacatecas")
+
+    def abbr(self):
+        return _AGEECodeAbbreviation.get(self)

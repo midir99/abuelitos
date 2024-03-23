@@ -6,6 +6,8 @@ from django.conf import settings
 from django.core.management import base
 from django.utils import text, timezone
 
+from ... import choices
+
 
 class Command(base.BaseCommand):
     help = (
@@ -46,12 +48,48 @@ class Command(base.BaseCommand):
                 quotechar=options["quotechar"],
             )
             inegi_localities = tuple(reader)
-        localities = tuple(map(transform_inegi_loc_to_model_loc, inegi_localities))
+
+        used_slugs = set()
+        localities = []
+        for il in inegi_localities:
+            locality = transform_inegi_loc_to_model_loc(il)
+            # Find a slug available.
+            if locality["fields"]["slug"] in used_slugs:
+                locality["fields"]["slug"] = make_slug_for_locality(
+                    locality["fields"]["agee_code"],
+                    locality["fields"]["agem_name"],
+                    locality["fields"]["loc_name"],
+                    locality["fields"]["loc_code"],
+                )
+            if locality["fields"]["slug"] in used_slugs:
+                raise base.CommandError(
+                    "Unable to find a unique slug for locality agee_code={} agem_code={} loc_code={}".format(
+                        locality["fields"]["agee_code"],
+                        locality["fields"]["agem_code"],
+                        locality["fields"]["loc_code"],
+                    )
+                )
+            used_slugs.add(locality["fields"]["slug"])
+            # Add locality to the list.
+            localities.append(locality)
+        # Write localities to a JSON file.
         with open(options["outputfile"], "wt", encoding="utf-8") as outputfile:
             json.dump(localities, outputfile)
 
 
+def make_slug_for_locality(agee_code, agem_name, loc_name, loc_code=None):
+    agee_name_abbr = choices.AGEECode(agee_code).abbr()
+    if loc_code is not None:
+        slug = text.slugify(f"{loc_name}{loc_code}-{agem_name}-{agee_name_abbr}")
+    else:
+        slug = text.slugify(f"{loc_name}-{agem_name}-{agee_name_abbr}")
+    return slug
+
+
 def transform_inegi_loc_to_model_loc(inegi_loc):
+    slug = make_slug_for_locality(
+        inegi_loc["CVE_ENT"], inegi_loc["NOM_MUN"], inegi_loc["NOM_LOC"]
+    )
     tzinfo = timezone.get_current_timezone() if settings.USE_TZ else None
     timestamp = datetime.datetime.now(tz=tzinfo)
     return {
@@ -63,6 +101,7 @@ def transform_inegi_loc_to_model_loc(inegi_loc):
             "agem_name": inegi_loc["NOM_MUN"],
             "loc_code": inegi_loc["CVE_LOC"],
             "loc_name": inegi_loc["NOM_LOC"],
+            "slug": slug,
             "updated_at": timestamp.isoformat(),
             "created_at": timestamp.isoformat(),
         },
