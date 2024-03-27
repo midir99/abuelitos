@@ -21,7 +21,7 @@ format:
 
 
 lint:
-	python3 -m pylint .
+	DJANGO_SETTINGS_MODULE=abuelitos.settings python3 -m pylint abuelitos/ accounts/ civilizations/
 
 
 test:
