@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from . import managers
@@ -401,6 +402,9 @@ class Person(models.Model):
     class Meta:
         verbose_name = _("Person")
         verbose_name_plural = _("People")
+
+    def get_absolute_url(self):
+        return reverse("civilizations:person_detail", kwargs={"slug": self.slug})
 
     def __str__(self):
         return f"{self.full_name}"

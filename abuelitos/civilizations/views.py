@@ -121,3 +121,13 @@ class OptionsForLocCodeView(views_generic.TemplateView):
 
 
 options_for_loc_code_view = OptionsForLocCodeView.as_view()
+
+
+class PersonDetailView(views_generic.DetailView):
+    template_name = "civilizations/person_detail.html"
+    model = models.Person
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+
+
+person_detail_view = PersonDetailView.as_view()

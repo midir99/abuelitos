@@ -2,7 +2,6 @@
 {% load i18n static civilizations_extras %}
 
 {% block more_css %}
-<link href="{% static "th_olian/plugins/footable/css/footable.bootstrap.min.css" %}" rel="stylesheet" type="text/css">
 <link href="{% static "th_olian/plugins/switchery/switchery.min.css" %}" rel="stylesheet" type="text/css">
 <link href="{% static "th_olian/plugins/select2/select2.min.css" %}" rel="stylesheet" type="text/css">
 {% endblock more_css %}
@@ -11,7 +10,7 @@
 
 {% block breadcrumbbar_list %}
 {{ block.super }}
-<li class="breadcrumb-item active" aria-current="page">{% translate "Search" %}</li>
+<li class="breadcrumb-item active" aria-current="page">{% translate "Search People" %}</li>
 {% endblock breadcrumbbar_list %}
 
 {% block contentbar_content %}
@@ -22,7 +21,7 @@
         <div class="card m-b-30">
             <div class="card-body">
                 <h5 class="card-title font-16">{% translate "Enter the information of the person and click on search!" %}</h5>
-                <h6 class="card-subtitle">You don't have to enter the person's information accurately; you can enter just a part of their <b>name</b>, an approximate <b>birth year</b>, or only the <b>state</b> where they lived.</h6>
+                <h6 class="card-subtitle">{% translate "You don't have to enter the person's information accurately; you can enter just a part of their name, an approximate birth year, or only the state where they lived." %}</h6>
                 <form method="get" action="{% url "civilizations:person_search" %}">
                     {% if form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>{% endif %}
                     <div class="form-row">
@@ -101,7 +100,7 @@
                         <tbody>
                             {% for person in object_list %}
                             <tr>
-                                <td><a href="#">{{ person.full_name }}</a></td>
+                                <td><a href="{{ person.get_absolute_url }}">{{ person.full_name }}</a></td>
                                 <td>{{ person.alias|default:"-" }}</td>
                                 <td>{{ person.date_of_birth|default:"-" }}</td>
                                 <td>{{ person.date_of_death|default:"-" }}</td>
@@ -119,33 +118,7 @@
             </div>
         </div> 
     </div>
-    <!-- End col -->
-    <!-- Start col -->
-    {% comment %}
-      
-    <div class="col-lg-12">
-        <div class="card m-b-30"> 
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table foo-pagination-table" data-paging="true">
-                        <thead>
-                            <tr>
-                                <th>{% translate "Full Name" %}</th>
-                                <th>{% translate "Alias" %}</th>
-                                <th>{% translate "Date Of Birth" %}</th>
-                                <th>{% translate "Date Of Death" %}</th>
-                                <th>{% translate "Father" %}</th>
-                                <th>{% translate "Mother" %}</th>
-                                <th>{% translate "Locality" %}</th>
-                            </tr> 
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endcomment %}
-    <!-- End col -->
+    <!-- End col --> 
 </div>
 <!-- End row -->
 {% endblock contentbar_content %}
@@ -156,12 +129,9 @@
 <script src="{% static "th_olian/plugins/select2/select2.min.js" %}"></script>
 <script src="{% static "th_olian/js/custom/custom-form-select.js" %}"></script>
 <script src="{% static "th_olian/plugins/moment/moment.js" %}"></script>     
-<script src="{% static "th_olian/plugins/footable/js/footable.min.js" %}"></script>     
-<script src="{% static "th_olian/js/custom/custom-table-footable.js" %}"></script>    
 <script src="{% static "th_olian/js/core.js" %}"></script>
 <script>
     $('#{{ form.agee_code.id_for_label }}').change(function() {
-        console.log('hoal')
         var selectLocality = $('#{{ form.loc_code.id_for_label }}')
         selectLocality.empty()
         selectLocality.append(`<option value="" selected>{% translate "All Localities" %}</option>`)

@@ -16,4 +16,5 @@ urlpatterns = [
         views.options_for_loc_code_view,
         name="options_for_loc_code",
     ),
+    path("<slug:slug>/", views.person_detail_view, name="person_detail"),
 ]
