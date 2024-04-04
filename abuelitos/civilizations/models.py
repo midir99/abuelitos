@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from . import managers
+from . import choices, managers
 
 
 class Locality(models.Model):
@@ -237,6 +237,13 @@ class Person(models.Model):
         null=True,
         help_text=_("Date of death of this person."),
     )
+    sex = models.CharField(
+        _("sex"),
+        choices=choices.Sex.choices,
+        max_length=1,
+        blank=True,
+        help_text=_("Sex of this person."),
+    )
     biography = models.TextField(
         _("biography"), blank=True, help_text=_("Biography of this person.")
     )
@@ -405,6 +412,21 @@ class Person(models.Model):
 
     def get_absolute_url(self):
         return reverse("civilizations:person_detail", kwargs={"slug": self.slug})
+
+    def get_pictures(self):
+        pics = list(
+            filter(
+                lambda p: p["picture"],
+                [
+                    {"picture": self.picture_1, "caption": self.picture_1_caption},
+                    {"picture": self.picture_2, "caption": self.picture_2_caption},
+                    {"picture": self.picture_3, "caption": self.picture_3_caption},
+                    {"picture": self.picture_4, "caption": self.picture_4_caption},
+                    {"picture": self.picture_5, "caption": self.picture_5_caption},
+                ],
+            )
+        )
+        return pics
 
     def __str__(self):
         return f"{self.full_name}"

@@ -81,3 +81,8 @@ class AGEECode(models.TextChoices):
 
     def abbr(self):
         return _AGEECodeAbbreviation.get(self)
+
+
+class Sex(models.TextChoices):
+    MALE = ("M", _("Male"))
+    FEMALE = ("F", _("Female"))
