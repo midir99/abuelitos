@@ -104,8 +104,8 @@
                                 <td>{{ person.alias|default:"-" }}</td>
                                 <td>{{ person.date_of_birth|default:"-" }}</td>
                                 <td>{{ person.date_of_death|default:"-" }}</td>
-                                <td>{% if person.father %}<a href="#">{{ person.father.full_name }}</a>{% else %}-{% endif %}</td>
-                                <td>{% if person.mother %}<a href="#">{{ person.mother.full_name }}</a>{% else %}-{% endif %}</td>
+                                <td>{% if person.father %}<a href="{{ person.father.get_absolute_url }}">{{ person.father.full_name }}</a>{% else %}-{% endif %}</td>
+                                <td>{% if person.mother %}<a href="{{ person.mother.get_absolute_url }}">{{ person.mother.full_name }}</a>{% else %}-{% endif %}</td>
                                 <td>{% if person.locality %}<a href="#">{{ person.locality }}</a>{% else %}-{% endif %}</td>
                             </tr>
                             {% empty %}
@@ -116,9 +116,9 @@
                 </div>
                 {% show_pagination paginator page_obj request.GET %}
             </div>
-        </div> 
+        </div>
     </div>
-    <!-- End col --> 
+    <!-- End col -->
 </div>
 <!-- End row -->
 {% endblock contentbar_content %}
@@ -128,7 +128,7 @@
 <script src="{% static "th_olian/plugins/switchery/switchery.min.js" %}"></script>
 <script src="{% static "th_olian/plugins/select2/select2.min.js" %}"></script>
 <script src="{% static "th_olian/js/custom/custom-form-select.js" %}"></script>
-<script src="{% static "th_olian/plugins/moment/moment.js" %}"></script>     
+<script src="{% static "th_olian/plugins/moment/moment.js" %}"></script>
 <script src="{% static "th_olian/js/core.js" %}"></script>
 <script>
     $('#{{ form.agee_code.id_for_label }}').change(function() {

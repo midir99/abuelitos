@@ -19,7 +19,7 @@
 		}
 		&:hover {
 		  color: $white;
-		  background-color: #913929;
+		  background-color: $marron;
 		  border-color: $border-color;
 		}
 		&:first-child {
@@ -34,7 +34,7 @@
 	&.active {
 		.page-link {
 			font-weight: 700;
-			color: #f7a74a;
+			color: $yellow;
 		  	background-color: $primary;
 		  	border-color: $primary;
 		}
