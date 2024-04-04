@@ -71,9 +71,6 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
 
 WSGI_APPLICATION = "abuelitos.wsgi.application"
 
@@ -124,6 +121,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+
+# Media files
+# https://docs.djangoproject.com/en/5.0/ref/settings/#media-url
+
+MEDIA_URL = "media/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
